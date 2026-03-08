@@ -1,23 +1,45 @@
 <section id="about" class="about">
   <h2>About</h2>
   <p>
-    I'm a developer who enjoys building clean, practical software.
-    I care about writing code that's easy to read, easy to maintain,
-    and does what it's supposed to do.
+    I'm a senior fullstack mobile engineer with over a decade of experience shipping products across
+    iOS, Android, and the web. I'm proficient in native iOS development and have hands-on experience
+    contributing to Android and cross-platform codebases including React Native.
   </p>
   <p>
-    When I'm not coding, I like digging into new tech, writing about
-    what I've learned, and finding better ways to solve everyday problems.
+    I was previously Head of Engineering at <strong>GXBank</strong>, where I helped build the app from
+    zero to one, established the development architecture, and led the mobile team through BNM attestation
+    for license approval. Previously, I led mobile teams at <strong>Coins.ph</strong>, shipped products at
+    <strong>Fave</strong> and <strong>KFIT</strong>, and worked across domains from fintech to computer
+    vision systems.
+  </p>
+  <p>
+    I'm a strong advocate for lean agile development and continuous integration &mdash; from setting up
+    CI/CD pipelines with Jenkins and Bitrise to establishing team OKRs and mobile automation testing
+    with Appium.
   </p>
 
   <h3>Tech I work with</h3>
   <ul class="tech-list">
-    <li>JavaScript / TypeScript</li>
-    <li>Python</li>
-    <li>React</li>
+    <li>Swift</li>
+    <li>Objective-C</li>
+    <li>Java</li>
+    <li>JavaScript</li>
+    <li>React Native</li>
     <li>Node.js</li>
-    <li>Git &amp; CI/CD</li>
-    <li>Cloud / Infrastructure</li>
+    <li>C#</li>
+    <li>SQL / MySQL</li>
+    <li>CI/CD (Jenkins, Bitrise)</li>
+    <li>Appium</li>
+    <li>Azure</li>
+    <li>Scrum / Agile</li>
+  </ul>
+
+  <h3>Career highlights</h3>
+  <ul class="career-list">
+    <li><strong>GXBank</strong> &mdash; Head of Engineering <span class="muted">(2022&ndash;present)</span></li>
+    <li><strong>Coins.ph</strong> &mdash; Mobile Team Lead <span class="muted">(2018&ndash;2022)</span></li>
+    <li><strong>KFIT / Fave</strong> &mdash; Mobile Engineer <span class="muted">(2016)</span></li>
+    <li><strong>Herbalife</strong> &mdash; Senior Mobile Developer <span class="muted">(2014&ndash;2015)</span></li>
   </ul>
 </section>
 
@@ -50,5 +72,27 @@
     border-radius: var(--radius);
     color: var(--color-text-muted);
     background: var(--color-surface);
+  }
+
+  .career-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .career-list li {
+    font-size: 0.95rem;
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .career-list li:last-child {
+    border-bottom: none;
+  }
+
+  .muted {
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
   }
 </style>
