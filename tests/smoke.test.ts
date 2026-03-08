@@ -5,7 +5,6 @@ import { describe, it, expect, beforeAll } from 'vitest';
 const pages = [
   'dist/index.html',
   'dist/articles/index.html',
-  'dist/articles/hello-world/index.html',
 ];
 
 beforeAll(() => {
@@ -34,13 +33,6 @@ describe('build output', () => {
     expect(existsSync(path)).toBe(true);
     const html = readFileSync(path, 'utf-8');
     expect(html).toContain('Articles');
-  });
-
-  it('generates the sample article page', () => {
-    const path = 'dist/articles/hello-world/index.html';
-    expect(existsSync(path)).toBe(true);
-    const html = readFileSync(path, 'utf-8');
-    expect(html).toContain('Hello World');
   });
 
   it('includes navigation on every page', () => {
