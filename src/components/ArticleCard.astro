@@ -1,0 +1,71 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  date: Date;
+  href: string;
+  tags?: string[];
+}
+
+const { title, description, date, href, tags } = Astro.props;
+---
+
+<a href={href} class="article-card">
+  <time datetime={date.toISOString()}>{date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+  <h3>{title}</h3>
+  <p>{description}</p>
+  {tags && tags.length > 0 && (
+    <ul class="tags">
+      {tags.map((tag) => <li>{tag}</li>)}
+    </ul>
+  )}
+</a>
+
+<style>
+  .article-card {
+    display: block;
+    padding: var(--space-md) var(--space-lg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-surface);
+    color: var(--color-text);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .article-card:hover {
+    border-color: var(--color-accent);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    text-decoration: none;
+  }
+
+  time {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+  }
+
+  h3 {
+    margin-top: var(--space-xs);
+    margin-bottom: var(--space-xs);
+  }
+
+  p {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+  }
+
+  .tags {
+    display: flex;
+    gap: var(--space-sm);
+    list-style: none;
+    margin-top: var(--space-sm);
+  }
+
+  .tags li {
+    font-size: 0.8rem;
+    color: var(--color-accent);
+    background: #eef2ff;
+    padding: 0.1rem 0.5rem;
+    border-radius: var(--radius);
+  }
+</style>

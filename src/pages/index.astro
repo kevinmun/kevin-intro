@@ -1,8 +1,72 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const recentArticles = (await getCollection('articles'))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
 ---
 
-<BaseLayout title="Kevin Mun">
-  <h1>Kevin Mun</h1>
-  <p>Portfolio coming soon.</p>
+<BaseLayout title="Kevin Mun — Developer Portfolio">
+  <Hero />
+  <About />
+
+  <section class="recent-articles">
+    <div class="section-header">
+      <h2>Recent Articles</h2>
+      <a href={`${base}articles/`}>View all &rarr;</a>
+    </div>
+
+    {recentArticles.length === 0 ? (
+      <p class="empty">No articles yet — check back soon.</p>
+    ) : (
+      <ul class="article-list">
+        {recentArticles.map((article) => (
+          <li>
+            <ArticleCard
+              title={article.data.title}
+              description={article.data.description}
+              date={article.data.date}
+              href={`${base}articles/${article.id}/`}
+              tags={article.data.tags}
+            />
+          </li>
+        ))}
+      </ul>
+    )}
+  </section>
 </BaseLayout>
+
+<style>
+  .recent-articles {
+    padding-block: var(--space-xl);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: var(--space-lg);
+  }
+
+  .section-header a {
+    font-size: 0.9rem;
+  }
+
+  .empty {
+    color: var(--color-text-muted);
+    font-style: italic;
+  }
+
+  .article-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+</style>

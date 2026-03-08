@@ -1,0 +1,114 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('articles');
+  return articles.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+---
+
+<BaseLayout title={`${entry.data.title} — Kevin Mun`} description={entry.data.description}>
+  <article class="article-content">
+    <header>
+      <a href={`${base}articles/`} class="back-link">&larr; All articles</a>
+      <h1>{entry.data.title}</h1>
+      <time datetime={entry.data.date.toISOString()}>
+        {entry.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+      </time>
+      {entry.data.tags && entry.data.tags.length > 0 && (
+        <ul class="tags">
+          {entry.data.tags.map((tag) => <li>{tag}</li>)}
+        </ul>
+      )}
+    </header>
+
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .article-content {
+    padding-block: var(--space-xl);
+  }
+
+  .back-link {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    display: inline-block;
+    margin-bottom: var(--space-lg);
+  }
+
+  .back-link:hover {
+    color: var(--color-accent);
+  }
+
+  header {
+    margin-bottom: var(--space-xl);
+  }
+
+  header h1 {
+    margin-bottom: var(--space-sm);
+  }
+
+  time {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+
+  .tags {
+    display: flex;
+    gap: var(--space-sm);
+    list-style: none;
+    margin-top: var(--space-sm);
+  }
+
+  .tags li {
+    font-size: 0.8rem;
+    color: var(--color-accent);
+    background: #eef2ff;
+    padding: 0.1rem 0.5rem;
+    border-radius: var(--radius);
+  }
+
+  .prose :global(h1, h2, h3, h4) {
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-sm);
+  }
+
+  .prose :global(p) {
+    margin-block: var(--space-md);
+  }
+
+  .prose :global(ul, ol) {
+    padding-left: var(--space-lg);
+    margin-block: var(--space-md);
+  }
+
+  .prose :global(li) {
+    margin-block: var(--space-xs);
+  }
+
+  .prose :global(pre) {
+    background: #f4f4f5;
+    padding: var(--space-md);
+    border-radius: var(--radius);
+    overflow-x: auto;
+  }
+
+  .prose :global(blockquote) {
+    border-left: 3px solid var(--color-accent);
+    padding-left: var(--space-md);
+    color: var(--color-text-muted);
+    margin-block: var(--space-md);
+  }
+</style>
